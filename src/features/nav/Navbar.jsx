@@ -7,11 +7,14 @@ export default function Navbar (){
 <Menu fixed='top' inverted color='blue'>
       <Container>
         
-        <Menu.Item header>
+        <Menu.Item header style={{cursor:'pointer'}}>
+            
             <img src='assets/logo.png' alt='logo'style={{marginRight:'0.5em'}}></img>
-            Re-vents
+            <span >Re-vents</span>
+           
+           
         </Menu.Item>
-        <Menu.Item name='Events'></Menu.Item>
+        <Menu.Item style={{cursor:'pointer'}} name='Events'></Menu.Item>
         <Menu.Item>
             <Button positive inverted content='Create Event'></Button>
         </Menu.Item>
