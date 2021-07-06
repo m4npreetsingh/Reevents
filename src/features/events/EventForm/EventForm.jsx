@@ -1,34 +1,115 @@
-import React from "react";
-import {Segment,Header,Form,Button} from 'semantic-ui-react'
-export default function EventForm({setFormOpen}){
+import React, { useState } from "react";
+import { Segment, Header, Form, Button } from "semantic-ui-react";
+import cuid from "cuid";
+export default function EventForm({ setFormOpen, setEvents,createEvent,selectedEvent }) {
+  const initialValues = selectedEvent ??{
+    title: "",
+    category: "",
+    venue: "",
+    date: "",
+    city: "",
+    description: "",
+  };
 
-    return(
-        <Segment clearing>
-            <Header content='Create New Event'/>
-            <Form>
-                <Form.Field>
-                    <input type='text'placeholder='Event Title'/>
-                </Form.Field>
-                <Form.Field>
-                    <input type='text'placeholder='Category'/>
-                </Form.Field>
-                <Form.Field>
-                    <input type='text'placeholder='Description'/>
-                </Form.Field>
-                <Form.Field>
-                    <input type='text'placeholder='City'/>
-                </Form.Field>
-                <Form.Field>
-                    <input type='text'placeholder='Venue'/>
-                </Form.Field>
-                <Form.Field>
-                    <input type='Date'placeholder='Date'/>
-                </Form.Field>
-                <Button type='submit' positive content='Submit' floated='right' ></Button>
-                <Button onClick={()=>{setFormOpen(false)}}  inverted secondary content='Cancel' floated='right' ></Button>
+  const [values, setValues] = useState(initialValues);
 
-            </Form>
-            
-        </Segment>
-    )
+  function handleFormSubmit() {
+    
+    createEvent({...values,attendees:[],hostedBy:'Bob',hostPhotoURL: '/assets/user.png',id : cuid()})
+    setFormOpen(false)
+  }
+
+  function handleInputChange(e) {
+    const { name, value } = e.target;
+    setValues({ ...values, [name]: value });
+  }
+
+  return (
+    <Segment clearing>
+      <Header content="Create New Event" />
+      <Form onSubmit={handleFormSubmit}>
+        <Form.Field>
+          <input
+            type="text"
+            placeholder="Event Title"
+            name="title"
+            value={values.title}
+            onChange={(e) => {
+              handleInputChange(e);
+            }}
+          />
+        </Form.Field>
+        <Form.Field>
+          <input
+            type="text"
+            placeholder="Category"
+            name="category"
+            value={values.category}
+            onChange={(e) => {
+              handleInputChange(e);
+            }}
+          />
+        </Form.Field>
+        <Form.Field>
+          <input
+            type="text"
+            placeholder="Description"
+            name="description"
+            value={values.description}
+            onChange={(e) => {
+              handleInputChange(e);
+            }}
+          />
+        </Form.Field>
+        <Form.Field>
+          <input
+            type="text"
+            placeholder="City"
+            name="city"
+            value={values.city}
+            onChange={(e) => {
+              handleInputChange(e);
+            }}
+          />
+        </Form.Field>
+        <Form.Field>
+          <input
+            type="text"
+            placeholder="Venue"
+            name="venue"
+            value={values.venue}
+            onChange={(e) => {
+              handleInputChange(e);
+            }}
+          />
+        </Form.Field>
+        <Form.Field>
+          <input
+            type="Date"
+            placeholder="Date"
+            name="date"
+            value={values.date}
+            onChange={(e) => {
+              handleInputChange(e);
+            }}
+          />
+        </Form.Field>
+        <Button
+          type="submit"
+          positive
+          content="Submit"
+          floated="right"
+        ></Button>
+        <Button
+          onClick={() => {
+            setFormOpen(false);
+          }}
+          inverted
+          secondary
+          content="Cancel"
+          floated="right"
+        ></Button>
+      </Form>
+    </Segment>
+  );
 }
