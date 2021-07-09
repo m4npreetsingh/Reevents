@@ -1,11 +1,12 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 import { Button, Container, Menu } from "semantic-ui-react";
 
 export default function Navbar({ setFormOpen }) {
   return (
     <Menu fixed="top" inverted color="blue">
       <Container>
-        <Menu.Item header style={{ cursor: "pointer" }}>
+        <Menu.Item as={NavLink} exact to='/' header style={{ cursor: "pointer" }}>
           <img
             src="assets/logo.png"
             alt="logo"
@@ -13,9 +14,10 @@ export default function Navbar({ setFormOpen }) {
           ></img>
           <span>Re-vents</span>
         </Menu.Item>
-        <Menu.Item style={{ cursor: "pointer" }} name="Events"></Menu.Item>
+        <Menu.Item as={NavLink} exact to='/events' style={{ cursor: "pointer" }} name="Events"></Menu.Item>
         <Menu.Item>
           <Button
+          as={NavLink} exact to='/createevent'
             onClick={() => {
               setFormOpen();
             }}
